@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kopi Kenangan</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap" rel="stylesheet"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background-color: #fff;
+    }
+
+    /* Navbar */
+    .navbar-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 30px;
+      background-color: rgba(80, 48, 12, 0.9);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo img {
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+    }
+
+    .logo p {
+      font-size: 22px;
+      margin: 0;
+      font-weight: bold;
+      color: #fff;
+    }
+
+    .logo span {
+      color: #aa702a;
+      font-style: italic;
+    }
+
+    .nav-list ul {
+      display: flex;
+      gap: 20px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .nav-list a {
+      text-decoration: none;
+      font-weight: 600;
+      color: #fff;
+      position: relative;
+      padding-bottom: 3px;
+    }
+
+    .nav-list a::after {
+      content: '';
+      position: absolute;
+      width: 0%;
+      height: 2px;
+      background-color: #aa702a;
+      bottom: 0;
+      left: 0;
+      transition: 0.3s;
+    }
+
+    .nav-list a:hover::after {
+      width: 100%;
+    }
+
+    .hamburger-menu {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+    }
+
+    .hamburger-menu span {
+      width: 25px;
+      height: 3px;
+      background: white;
+    }
+
+    @media (max-width: 768px) {
+      .nav-list {
+        display: none;
+      }
+
+      .hamburger-menu {
+        display: flex;
+      }
+    }
+
+    /* Sidebar */
+    .sidebar {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 250px;
+      height: 100%;
+      background-color: rgba(80, 48, 12, 0.95);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 60px;
+      transition: right 0.3s ease;
+      z-index: 9999;
+    }
+
+    .sidebar.active {
+      right: 0;
+    }
+
+    .sidebar img {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      margin-bottom: 20px;
+    }
+
+    .sidebar ul {
+      list-style: none;
+      padding: 0;
+      width: 100%;
+      text-align: center;
+    }
+
+    .sidebar ul li {
+      padding: 15px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .sidebar ul li a {
+      color: white;
+      text-decoration: none;
+      font-size: 18px;
+      display: block;
+      transition: 0.3s;
+      position: relative;
+    }
+
+    .sidebar ul li a::after {
+      content: '';
+      position: absolute;
+      width: 0%;
+      height: 2px;
+      background-color: #aa702a;
+      bottom: 4px;
+      left: 0;
+      transition: width 0.3s ease;
+    }
+
+    .sidebar ul li a:hover::after {
+      width: 100%;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 20px;
+      right: 25px;
+      font-size: 24px;
+      color: white;
+      cursor: pointer;
+    }
+
+    /* Hero */
+    .hero-section {
+      background: url('https://images.unsplash.com/photo-1509042239860-f550ce710b93') center center / cover no-repeat;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      color: white;
+      padding: 0 10%;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+    }
+
+    .hero-content {
+      max-width: 600px;
+    }
+
+    .hero-content h1 {
+      font-size: 3rem;
+      margin-bottom: 20px;
+    }
+
+    .hero-content p {
+      font-size: 1.2rem;
+      margin-bottom: 30px;
+    }
+
+    .btn-hero {
+      background-color: #c9662d;
+      color: white;
+      padding: 12px 25px;
+      border: none;
+      border-radius: 6px;
+      font-size: 1rem;
+      cursor: pointer;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+
+    .btn-hero:hover {
+      background-color: #a8511f;
+    }
+
+    section {
+      padding: 70px 20px;
+    }
+
+    #about, #menu, #contact {
+      text-align: center;
+      padding: 20px 5px;
+    }
+
+    #about {
+      background-color: #f5f5f5;
+      padding: 70px 20px;
+
+    }
+
+    #menu {
+      background-color: #fff;
+    }
+
+    .menu-items {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+      margin-top: 40px;
+    }
+
+    .menu-item {
+      background: white;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      width: 250px;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .menu-item img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+    }
+
+    .menu-item h3 {
+      margin: 10px 0 5px;
+    }
+
+    .menu-item p {
+      padding: 0 10px 15px;
+      font-size: 0.95rem;
+    }
+
+    #contact {
+      background-color: #fafafa;
+    }
+
+    #contact form {
+      max-width: 500px;
+      margin: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    #contact input,
+    #contact textarea {
+      padding: 12px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+    }
+
+    #contact button {
+      background-color: #c9662d;
+      color: white;
+      padding: 12px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    #contact button:hover {
+      background-color: #a8511f;
+    }
+
+        footer {
+      background-color: #50300c;
+      color: white;
+      text-align: center;
+      padding: 10px 20px;
+    }
+    
+    .footer-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+    
+    .footer-logo {
+      text-align: center;
+    }
+    
+    .footer-logo img {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+    }
+    
+    .footer-logo p {
+      font-size: 18px;
+      font-weight: bold;
+      margin: 10px 0 0;
+    }
+    
+    .footer-logo span {
+      color: #aa702a;
+      font-style: italic;
+    }
+    
+    .footer-social {
+      margin: 20px 0;
+    }
+    
+    .footer-social a {
+      color: white;
+      font-size: 24px;
+      margin: 0 10px;
+      transition: color 0.3s, transform 0.3s;
+    }
+    
+    .footer-social a:hover {
+      color: #aa702a;
+      transform: scale(1.2);
+    }
+    
+    footer p {
+      font-size: 14px;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<header class="navbar-container">
+  <div class="logo">
+    <img src="logo.jpg" alt="Logo" />
+    <p>Kopi<span>kenangan</span></p>
+  </div>
+  <nav class="nav-list">
+    <ul>
+      <li><a href="#home">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#menu">Menu</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+  <div class="hamburger-menu" id="hamburger">
+    <span></span><span></span><span></span>
+  </div>
+</header>
+
+<!-- Sidebar Mobile -->
+<div class="sidebar" id="sidebar">
+  <span class="close-btn" onclick="closeSidebar()">✖</span>
+  <img src="logo.jpg" alt="Sidebar Logo" />
+  <ul>
+    <li><a href="#home" onclick="closeSidebar()">Home</a></li>
+    <li><a href="#about" onclick="closeSidebar()">About</a></li>
+    <li><a href="#menu" onclick="closeSidebar()">Menu</a></li>
+    <li><a href="#contact" onclick="closeSidebar()">Contact</a></li>
+  </ul>
+</div>
+
+<!-- Hero -->
+<section class="hero-section" id="home">
+  <div class="hero-content">
+    <h1>Selamat Datang di Kopi Kenangan</h1>
+    <p>Temukan kehangatan dalam setiap tegukan. Kami menyajikan kopi terbaik dengan cinta dan kualitas premium.</p>
+    
+    <a href="#menu" class="btn-hero">Pesan Sekarang</a>
+  </div>
+</section>
+
+<!-- About -->
+<section id="about">
+  <h2>Tentang Kami</h2>
+  <p>
+    Kopi Kenangan berdiri dengan semangat menyajikan kopi terbaik dari biji pilihan nusantara<br> Kami percaya bahwa secangkir kopi bukan hanya minuman, tapi pengalaman yang menyatukan cerita dan kenangan.</p>
+  </p>
+</section>
+
+<!-- Menu -->
+<section id="menu">
+  <h2>Menu Kami</h2>
+  <div class="menu-items">
+    <div class="menu-item">
+      <img src="back.jpg" alt="Espresso">
+      
+  
+      <h3>Espresso</h3>
+      <p>Espresso pekat dengan rasa kuat dan aroma khas.</p>
+    </div>
+    <div class="menu-item">
+      <img src="back.jpg" alt="Latte">
+      <h3>Caffè Latte</h3>
+      <p>Kombinasi espresso dan susu dengan foam lembut di atasnya.</p>
+    </div>
+    <div class="menu-item">
+      <img src="back.jpg" alt="Cold Brew">
+      <h3>Cold Brew</h3>
+      <p>Kopi dingin dengan rasa halus dan kesegaran alami.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Contact -->
+<section id="contact">
+  <h2>Kontak Kami</h2>
+  <p>Silakan hubungi kami jika Anda memiliki pertanyaan atau ingin melakukan pemesanan.</p>
+  <form>
+    <input type="text" placeholder="Nama Anda" required />
+    <input type="email" placeholder="Email Anda" required />
+    <textarea placeholder="Pesan Anda" rows="5" required></textarea>
+    <button type="submit">Kirim Pesan</button>
+  </form>
+</section>
+
+<footer>
+  <div class="footer-container">
+    <!-- Logo dan Teks -->
+    <div class="footer-logo">
+      <img src="logo.jpg" alt="Logo Kopi Kenangan" />
+      <p>Kopi<span>Kenangan</span></p>
+    </div>
+
+    <!-- Ikon Media Sosial -->
+    <div class="footer-social">
+      <a href="https://github.com/username" target="_blank"><i class="fab fa-github"></i></a>
+      <a href="https://wa.me/6281234567890" target="_blank"><i class="fab fa-whatsapp"></i></a>
+      <a href="https://instagram.com/username" target="_blank"><i class="fab fa-instagram"></i></a>
+    </div>
+  </div>
+  <p>&copy; 2025 Kopi Kenangan. All Rights Reserved.</p>
+</footer>
+
+<!-- Script -->
+<script>
+  const hamburger = document.getElementById('hamburger');
+  const sidebar = document.getElementById('sidebar');
+
+  hamburger.addEventListener('click', () => {
+    sidebar.classList.toggle('active');
+  });
+
+  function closeSidebar() {
+    sidebar.classList.remove('active');
+  }
+</script>
+
+</body>
+</html>
